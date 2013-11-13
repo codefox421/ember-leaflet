@@ -126,3 +126,10 @@ test("Setters", function() {
   layer.set('pointerEvents', 'none');
   equal(layer._layer.options.pointerEvents, 'none', "set pointer events");
 });
+
+test("Postponed set operations propegate to layer", function() {
+  layer._destroyLayer();
+  layer.set('color', '#000');
+  layer._createLayer();
+  equal(layer._layer.options.color, '#000', "set after layer re-creation");
+});

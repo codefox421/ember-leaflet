@@ -103,17 +103,31 @@ EmberLeaflet.computed.styleProperty = function(styleKey) {
   return Ember.computed('options', function(key, value) {
     // override given key with explicitly defined one if necessary
     key = styleKey || key;
-    if(arguments.length > 1) { // set
+    function stylePropertySet(key, value, context) {
       var styleObject = {};
       Ember.assert(
         "The Leaflet layer for " + this.constructor +
         " does not have a setStyle function.",
-        !!this._layer.setStyle);
+        !!context._layer.setStyle);
       styleObject[key] = value;
-      this._layer.setStyle(styleObject);
+      context._layer.setStyle(styleObject);
+    }
+    function stylePropertyLayerChanged(sender, observerKey, observerValue, rev) {
+      if(sender._layer) {
+        stylePropertySet(key, value, sender);
+        sender.removeObserver('layer', sender, stylePropertyLayerChanged);
+      }
+    }
+    if(arguments.length > 1) { // set
+      if(!this._layer) {
+        this.addObserver('layer', this, stylePropertyLayerChanged);
+      } else {
+        stylePropertySet(key, value, this);
+      }
       return value;
     } else { // get
-      return this._layer.options[key];
+      if(this._layer)
+        return this._layer.options[key];
     }
   });
 };
