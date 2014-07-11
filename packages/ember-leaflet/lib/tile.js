@@ -1,13 +1,14 @@
 var get = Ember.get;
 
 /**
-  `EmberLeaflet.TileLayer` is a tile set.
+  `EmberLeaflet.TileLayerMixin` is a tile set.
  
-  @class TileLayer
+  @class TileLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.Layer
+  @uses EmberLeaflet.LayerMixin
 */
-EmberLeaflet.TileLayer = EmberLeaflet.Layer.extend({
+EmberLeaflet.TileLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.LayerMixin, {
   tileUrl: null,
   options: {},
   _newLayer: function() {
@@ -22,6 +23,17 @@ EmberLeaflet.TileLayer = EmberLeaflet.Layer.extend({
   zIndex: EmberLeaflet.computed.optionProperty(),
   opacity: EmberLeaflet.computed.optionProperty()
 });
+
+/**
+  `EmberLeaflet.TileLayer` is a convenience object for those who prefer
+  creating layers with `EmberLeaflet.TileLayer.extend(...)` rather than
+  `Ember.Object.extend(EmberLeaflet.TileLayerMixin, ...)`.
+
+  @class TileLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.TileLayerMixin
+*/
+EmberLeaflet.TileLayer = Ember.Object.extend(EmberLeaflet.TileLayerMixin, {});
 
 EmberLeaflet.DefaultTileLayer = EmberLeaflet.TileLayer.extend({
   tileUrl: 'http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png'

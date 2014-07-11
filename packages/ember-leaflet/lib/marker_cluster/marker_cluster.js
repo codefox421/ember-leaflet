@@ -1,4 +1,5 @@
-EmberLeaflet.MarkerClusterLayer = EmberLeaflet.ContainerLayer.extend({
+EmberLeaflet.MarkerClusterLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.ContainerLayerMixin, {
   options: {},
 
   /** Special value for detecting clustering. This is important as the
@@ -21,3 +22,5 @@ EmberLeaflet.MarkerClusterLayer = EmberLeaflet.ContainerLayer.extend({
     if(layer._map) { layer._map.removeLayer(layer); }
   }
 });
+
+EmberLeaflet.MarkerClusterLayer = Ember.Object.extend(EmberLeaflet.MarkerClusterLayerMixin, {});

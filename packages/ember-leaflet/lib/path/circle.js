@@ -3,14 +3,15 @@ var get = Ember.get,
 
 
 /**
-  `EmberLeaflet.CircleLayer` is a circle on the map that adjusts based
+  `EmberLeaflet.CircleLayerMixin` is a circle on the map that adjusts based
   on a content object that should be an array of LatLng objects.
  
-  @class CircleLayer
+  @class CircleLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.PointPathLayer
+  @uses EmberLeaflet.PointPathLayerMixin
 */
-EmberLeaflet.CircleLayer = EmberLeaflet.PointPathLayer.extend({
+EmberLeaflet.CircleLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.PointPathLayerMixin, {
   
   /**
   If this property is null, watch the content object for radius updates.
@@ -45,3 +46,14 @@ EmberLeaflet.CircleLayer = EmberLeaflet.PointPathLayer.extend({
     this._super();
   }
 });
+
+/**
+  `EmberLeaflet.CircleLayer` is a convenience object for those who prefer
+  creating layers with `EmberLeaflet.CircleLayer.extend(...)` rather than
+  `Ember.Object.extend(EmberLeaflet.CircleLayerMixin, ...)`.
+
+  @class CircleLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.CircleLayerMixin
+*/
+EmberLeaflet.CircleLayer = Ember.Object.extend(EmberLeaflet.CircleLayerMixin, {});

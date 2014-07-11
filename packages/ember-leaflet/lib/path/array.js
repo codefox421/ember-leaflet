@@ -2,15 +2,16 @@ var get = Ember.get,
   latLngFromArray = EmberLeaflet.convert.latLngFromLatLngArray;
 
 /**
-  `EmberLeaflet.ArrayPathLayer` is a base geometry on the map that
+  `EmberLeaflet.ArrayPathLayerMixin` is a base geometry on the map that
   adjusts based on a content object that should be an array of
   LatLng objects.
  
-  @class ArrayPathLayer
+  @class ArrayPathLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.Layer
+  @uses EmberLeaflet.PathLayerMixin
 */
-EmberLeaflet.ArrayPathLayer = EmberLeaflet.PathLayer.extend({
+EmberLeaflet.ArrayPathLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.PathLayerMixin, {
   init: function() {
     this._super();
     this._setupLocationObservers();
@@ -145,3 +146,14 @@ EmberLeaflet.ArrayPathLayer = EmberLeaflet.PathLayer.extend({
     this.propertyDidChange('locations');
   }
 });
+
+/**
+  `EmberLeaflet.ArrayPathLayer` is a convenience object for those who prefer
+  creating layers with `EmberLeaflet.ArrayPathLayer.extend(...)` rather than
+  `Ember.Object.extend(EmberLeaflet.ArrayPathLayerMixin, ...)`.
+
+  @class ArrayPathLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.ArrayPathLayerMixin
+*/
+EmberLeaflet.ArrayPathLayer = Ember.Object.extend(EmberLeaflet.ArrayPathLayerMixin, {});

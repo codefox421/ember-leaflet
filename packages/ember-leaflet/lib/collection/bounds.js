@@ -4,7 +4,6 @@
  
   @class CollectionBoundsMixin
   @namespace EmberLeaflet
-  @extends Ember.Mixin
   @uses EmberLeaflet.BoundsMixin
 */
 EmberLeaflet.CollectionBoundsMixin = Ember.Mixin.create(

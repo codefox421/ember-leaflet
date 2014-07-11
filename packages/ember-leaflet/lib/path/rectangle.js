@@ -1,14 +1,15 @@
 var get = Ember.get;
 
 /**
-  `EmberLeaflet.RectangleLayer` is a rectangle on the map that adjusts based
+  `EmberLeaflet.RectangleLayerMixin` is a rectangle on the map that adjusts based
   on a content object that should be an array of LatLng objects.
  
-  @class RectangleLayer
+  @class RectangleLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.PathBoundsLayer
+  @uses EmberLeaflet.BoundsPathLayerMixin
 */
-EmberLeaflet.RectangleLayer = EmberLeaflet.PathBoundsLayer.extend({
+EmberLeaflet.RectangleLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.BoundsPathLayerMixin, {
 
   events: ['click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'],
@@ -33,3 +34,14 @@ EmberLeaflet.RectangleLayer = EmberLeaflet.PathBoundsLayer.extend({
     }
   }, 'locations')
 });
+
+/**
+  `EmberLeaflet.RectangleLayer` is a convenience object for those who prefer
+  creating layers with `EmberLeaflet.RectangleLayer.extend(...)` rather than
+  `Ember.Object.extend(EmberLeaflet.RectangleLayerMixin, ...)`.
+
+  @class RectangleLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.RectangleLayerMixin
+*/
+EmberLeaflet.RectangleLayer = Ember.Object.extend(EmberLeaflet.RectangleLayerMixin, {});

@@ -3,11 +3,12 @@ var get = Ember.get;
 /**
   `EmberLeaflet.MarkerLayer` is a leaflet marker.
  
-  @class MarkerLayer
+  @class MarkerLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.Layer
+  @uses EmberLeaflet.LayerMixin
 */
-EmberLeaflet.MarkerLayer = EmberLeaflet.Layer.extend({
+EmberLeaflet.MarkerLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.LayerMixin, {
   content: null,
   options: null,
 
@@ -82,3 +83,13 @@ EmberLeaflet.MarkerLayer = EmberLeaflet.Layer.extend({
     this._super();
   }
 });
+
+/**
+  `EmberLeaflet.MarkerLayer` is a convenience object for those who prefer
+  creating marker layers with `EmberLeaflet.MarkerLayer.extend(...)` rather
+  than `Ember.Object.extend(EmberLeaflet.MarkerLayerMixin, ...)`.
+
+  @class MarkerLayer
+  @namespace EmberLeaflet
+*/
+EmberLeaflet.MarkerLayer = Ember.Object.extend(EmberLeaflet.MarkerLayerMixin, {});

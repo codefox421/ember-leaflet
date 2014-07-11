@@ -1,15 +1,16 @@
 var get = Ember.get, forEach = Ember.EnumerableUtils.forEach;
 
 /**
-  `EmberLeaflet.CollectionLayer` is the equivalent of `Ember.CollectionView`
+  `EmberLeaflet.CollectionLayerMixin` is the equivalent of `Ember.CollectionView`
   for DOM views -- it observes the `content` array for updates and maintains
   a list of child layers associated with the content array.
  
-  @class CollectionLayer
+  @class CollectionLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.Layer
+  @uses EmberLeaflet.ContainerLayerMixin
 */
-EmberLeaflet.CollectionLayer = EmberLeaflet.ContainerLayer.extend({
+EmberLeaflet.CollectionLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.ContainerLayerMixin, {
   content: [],
   isVirtual: true, 
 
@@ -73,3 +74,13 @@ EmberLeaflet.CollectionLayer = EmberLeaflet.ContainerLayer.extend({
     }
   }  
 });
+
+/**
+  A `CollectionLayer` is an empty collection layer that you can programmatically
+  add new layers to.
+
+  @class ConllectionLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.CollectionLayerMixin
+*/
+EmberLeaflet.CollectionLayer = Ember.Object.extend(EmberLeaflet.CollectionLayerMixin, {});

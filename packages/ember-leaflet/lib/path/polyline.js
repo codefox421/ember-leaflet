@@ -1,14 +1,15 @@
 var get = Ember.get;
 
 /**
-  `EmberLeaflet.PolylineLayer` is a polyline on the map that adjusts based
+  `EmberLeaflet.PolylineLayerMixin` is a polyline on the map that adjusts based
   on a content object that should be an array of LatLng objects.
  
-  @class PolylineLayer
+  @class PolylineLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.ArrayPathLayer
+  @uses EmberLeaflet.ArrayPathLayerMixin
 */
-EmberLeaflet.PolylineLayer = EmberLeaflet.ArrayPathLayer.extend({
+EmberLeaflet.PolylineLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.ArrayPathLayerMixin, {
   options: {},
 
   events: ['click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
@@ -24,8 +25,13 @@ EmberLeaflet.PolylineLayer = EmberLeaflet.ArrayPathLayer.extend({
   }, 'locations')
 });
 
-EmberLeaflet.PolygonLayer = EmberLeaflet.PolylineLayer.extend({
-  _newLayer: function() {
-    return L.polygon(get(this, 'locations'), get(this, 'options'));
-  }
-});
+/**
+  `EmberLeaflet.PolylineLayer` is a convenience object for those who prefer
+  creating layers with `EmberLeaflet.PolylineLayer.extend(...)` rather than
+  `Ember.Object.extend(EmberLeaflet.PolylineLayerMixin, ...)`.
+
+  @class PolylineLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.PolylineLayerMixin
+*/
+EmberLeaflet.PolylineLayer = Ember.Object.extend(EmberLeaflet.PolylineLayerMixin, {});

@@ -149,6 +149,7 @@ EmberLeaflet.LayerMixin = Ember.Mixin.create({
 
   @class Layer
   @namespace EmberLeaflet
+  @uses EmberLeaflet.LayerMixin
 */
 EmberLeaflet.Layer = Ember.Object.extend(EmberLeaflet.LayerMixin, {});
 
@@ -157,6 +158,7 @@ EmberLeaflet.Layer = Ember.Object.extend(EmberLeaflet.LayerMixin, {});
 
   @class EmptyLayer
   @namespace EmberLeaflet
+  @extends EmberLeaflet.Layer
 */
 EmberLeaflet.EmptyLayer = EmberLeaflet.Layer.extend({
   _newLayer: function() { return L.layerGroup([]); }

@@ -1,12 +1,15 @@
 /**
-  `EmberLeaflet.MarkerCollectionLayer` is a specific collection layer
+  `EmberLeaflet.MarkerCollectionLayerMixin` is a specific collection layer
   containing marker objects.
  
-  @class MarkerCollectionLayer
+  @class MarkerCollectionLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.CollectionLayer
-  @uses EmberLeaflet.BoundsMixin
+  @uses EmberLeaflet.CollectionLayer
+  @uses EmberLeaflet.MarkerLayer
 */
-EmberLeaflet.MarkerCollectionLayer = EmberLeaflet.CollectionLayer.extend({
+EmberLeaflet.MarkerCollectionLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.CollectionLayerMixin, {
   itemLayerClass: EmberLeaflet.MarkerLayer
 });
+
+EmberLeaflet.MarkerCollectionLayer = Ember.Object.extend(EmberLeaflet.MarkerCollectionLayerMixin, {});

@@ -2,14 +2,15 @@ var get = Ember.get,
   latLngFromArray = EmberLeaflet.convert.latLngFromLatLngArray;
 
 /**
-  `EmberLeaflet.PointPathLayer` is a base geometry on the map that
+  `EmberLeaflet.PointPathLayerMixin` is a base geometry on the map that
   adjusts based on a content object that should be a LatLng object.
  
-  @class PointPathLayer
+  @class PointPathLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.Layer
+  @uses EmberLeaflet.PathLayerMixin
 */
-EmberLeaflet.PointPathLayer = EmberLeaflet.PathLayer.extend({
+EmberLeaflet.PointPathLayerMixin = Ember.Mixin.create(
+    EmberLeaflet.PathLayerMixin, {
 
   location: Ember.computed.alias('content.location'),
   
@@ -33,3 +34,14 @@ EmberLeaflet.PointPathLayer = EmberLeaflet.PathLayer.extend({
     }
   }, 'location')
 });
+
+/**
+  `EmberLeaflet.PointPathLayer` is a convenience object for those who prefer
+  creating layers with `EmberLeaflet.PointPathLayer.extend(...)` rather than
+  `Ember.Object.extend(EmberLeaflet.PointPathLayerMixin, ...)`.
+
+  @class PointPathLayer
+  @namespace EmberLeaflet
+  @uses EmberLeaflet.PointPathLayerMixin
+*/
+EmberLeaflet.PointPathLayer = Ember.Object.extend(EmberLeaflet.PointPathLayerMixin, {});

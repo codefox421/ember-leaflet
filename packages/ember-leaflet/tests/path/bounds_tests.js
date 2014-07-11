@@ -7,11 +7,11 @@ var n = [-15.780148, -47.92917],
     s = [-15.786108, -47.931933],
     e = [-15.783423, -47.924638];
 
-module("EmberLeaflet.PathBoundsLayer", {
+module("EmberLeaflet.BoundsPathLayer", {
   setup: function() {
     locations = Ember.A([
       L.latLng(n), L.latLng(w), L.latLng(s), null, L.latLng(e)]);
-    geometry = EmberLeaflet.PathBoundsLayer.create({
+    geometry = EmberLeaflet.BoundsPathLayer.create({
       locations: locations
     });
   },

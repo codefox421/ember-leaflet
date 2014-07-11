@@ -34,5 +34,6 @@ require("ember-leaflet/path/circle");
 
 require("ember-leaflet/path/array");
 require("ember-leaflet/path/polyline");
+require("ember-leaflet/path/polygon");
 require("ember-leaflet/path/bounds");
 require("ember-leaflet/path/rectangle");

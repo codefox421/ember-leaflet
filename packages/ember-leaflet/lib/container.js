@@ -8,11 +8,16 @@ var get = Ember.get, set = Ember.set, fmt = Ember.String.fmt,
 
   @class ContainerLayerMixin
   @namespace EmberLeaflet
-  @extends EmberLeaflet.LayerMixin
-  @extends Ember.MutableArray
+  @uses EmberLeaflet.LayerMixin
+  @uses Ember.MutableArray
 */
 EmberLeaflet.ContainerLayerMixin = Ember.Mixin.create(
     EmberLeaflet.LayerMixin, Ember.MutableArray, {
+  /**
+  Default _newLayer calls L.layerGroup to allow adding of new layers.
+  */
+  _newLayer: function() { return L.layerGroup(); },
+
   /**
   Initialize child layers from the class variable. This should only be
   called once.
@@ -150,10 +155,4 @@ EmberLeaflet.ContainerLayerMixin = Ember.Mixin.create(
   @namespace EmberLeaflet
   @uses EmberLeaflet.ContainerLayerMixin
 */
-EmberLeaflet.ContainerLayer = Ember.Object.extend(
-    EmberLeaflet.ContainerLayerMixin, {
-  /**
-  Default _newLayer calls L.layerGroup to allow adding of new layers.
-  */
-  _newLayer: function() { return L.layerGroup(); }
-});
+EmberLeaflet.ContainerLayer = Ember.Object.extend(EmberLeaflet.ContainerLayerMixin, {});
